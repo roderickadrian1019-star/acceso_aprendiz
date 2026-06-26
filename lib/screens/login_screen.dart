@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme.dart';
 import 'qr_screen.dart';
+import 'scanner_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,6 +36,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  void _abrirEscaner() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ScannerScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +57,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const SizedBox(height: 24),
 
-                  // Logo / ícono SENA
                   Container(
                     width: 72,
                     height: 72,
@@ -108,12 +115,46 @@ class _LoginScreenState extends State<LoginScreen> {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 32),
 
                   FilledButton.icon(
                     onPressed: _generarQr,
                     icon: const Icon(Icons.qr_code),
                     label: const Text('Generar código QR'),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Row(
+                    children: const [
+                      Expanded(child: Divider()),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Text('o', style: TextStyle(color: Colors.black38)),
+                      ),
+                      Expanded(child: Divider()),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Botón secundario: escanear QR
+                  OutlinedButton.icon(
+                    onPressed: _abrirEscaner,
+                    icon: const Icon(Icons.camera_alt_outlined),
+                    label: const Text('Escanear código QR'),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      side: const BorderSide(color: SenaColors.verde),
+                      foregroundColor: SenaColors.verde,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 24),
                 ],
